@@ -1,0 +1,36 @@
+name: env_var_github_actions
+
+on: push
+
+jobs:
+
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+
+    env:
+      MY_VAR: FOO
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Print environment variables
+      run: |
+        echo "############################"
+        echo $MY_VAR
+        echo ${{ env.MY_VAR }}
+        echo "############################"
+        
+    - name: Modify environment variable
+      run: |
+        echo "::set-env name=MY_VAR::BAR"
+
+    - name: Print modified environment variable
+      run: |
+        echo "############################"
+        echo $MY_VAR
+        echo ${{ env.MY_VAR }}
+        echo "############################"
+        
