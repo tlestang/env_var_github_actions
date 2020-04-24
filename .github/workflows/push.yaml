@@ -13,13 +13,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set environment variable
+    - name: Set environment variables
       run: |
-        echo "::set-env name=LD_LIBRARY_PATH::${{ env.HOME }}/.local/lib:$LD_LIBRARY_PATH"
+        echo "::set-env name=FOO::$HOME/.local/lib:$LD_LIBRARY_PATH"
+        echo "::set-env name=LD_LIBRARY_PATH::$HOME/.local/lib:$LD_LIBRARY_PATH"
         
-    - name: Print environment variable
+    - name: Print environment variables
       run: |
+        echo FOO=$FOO
+        echo FOO=${{ env.FOO }}
         echo "############################"
-        echo $LD_LIBRARY_PATH
-        echo ${{ env.LD_LIBRARY_PATH }}
+        echo LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+        echo LD_LIBRARY_PATH=${{ env.LD_LIBRARY_PATH }}
         echo "############################"
